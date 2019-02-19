@@ -1,5 +1,5 @@
 <application>
-  <component name="DaemonCodeAnalyzerSettings">
+  <component name="DaemonCodeAnalyzerSettings" profile="Project Default">
     <option name="SHOW_METHOD_SEPARATORS" value="true" />
   </component>
 </application>
