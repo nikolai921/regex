@@ -38,8 +38,12 @@
       <option name="auto-sync" value="true" />
     </driver>
     <driver id="mysql.8">
-      <artifact name="MySQL Connector/J 8" use="true" />
+      <artifact name="MySQL Connector/J 8" use="true" version="8.0.13" />
       <option name="auto-sync" value="true" />
+      <option name="auto-commit" value="true" />
+      <option name="send-app-info" value="true" />
+      <option name="schema-control" value="AUTOMATIC" />
+      <code-style-scheme-name>Default</code-style-scheme-name>
     </driver>
     <driver id="mysql">
       <artifact name="MySQL Connector/J" use="true" />
