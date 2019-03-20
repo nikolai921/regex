@@ -1,7 +1,7 @@
 <application>
   <component name="FindSettings">
-    <option name="customScope" value="File '.../03.php [task.rarus1]'" />
-    <option name="defaultScopeName" value="File '.../03.php [task.rarus1]'" />
-    <option name="SEARCH_SCOPE" value="File '.../03.php [task.rarus1]'" />
+    <option name="customScope" value="File '.../Circle.php [Task_OOP]'" />
+    <option name="defaultScopeName" value="File '.../Circle.php [Task_OOP]'" />
+    <option name="SEARCH_SCOPE" value="File '.../Circle.php [Task_OOP]'" />
   </component>
 </application>
