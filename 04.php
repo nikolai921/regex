@@ -23,7 +23,7 @@ function lineURLregex(string $inputString)
 {
     if (!empty($inputString)) {
 
-        $check = preg_match('#^(?:http(?:s)?\:\/\/)?(www\.)?[^\-][a-zA-Z0-9\.\-]{2,}[^\-]\.[a-z]{2,3}(?:.*)?$#',
+        $check = preg_match('#^(?:http(?:s)?\:\/\/)?(www\.)?[^\-][a-zA-Z0-9\.\-]{2,}[^\-]\.[a-z]{2,}(?:.*)?$#',
             $inputString);
         if ($check === 1) {
             $result = 'Yes';
@@ -34,6 +34,7 @@ function lineURLregex(string $inputString)
     }
 
 }
+
 
 /**
  * Не используя регулярные выражения
@@ -46,7 +47,7 @@ function lineURLphp(string $inputString)
         $check = filter_var($inputString, FILTER_VALIDATE_URL);
         if ($check !== false) {
             $hostName = parse_url($check, PHP_URL_HOST);
-            $checkHost = preg_replace('#^(?:www\.)?(.*)\.[a-z]{2,3}$#', '$1', $hostName);
+            $checkHost = preg_replace('#^(?:www\.)?(.*)\.[a-z]{2,}$#', '$1', $hostName);
             $lengthHost = strlen($checkHost);
             if ($lengthHost > 1) {
                 $result = 'Yes';
@@ -73,5 +74,6 @@ function lineURLphp(string $inputString)
         return $result;
     }
 }
+
 
 
