@@ -7,23 +7,21 @@ declare(strict_types=1);
  * Проверка, является ли данная строчка строкой "abcdefdhsf^dsdsbBB0*18340"
  * на базе регулярных выражений.
  *
- * @param $regex
- * @param $inputString
+ *
+ * @param $regex       - основная строка
+ * @param $inputString - сравниваемая строка на соответствие основной
  *
  * @return string
  */
 
 function lineMatchRegex(string $regex, string $inputString)
 {
-    if(!empty($regex) && !empty($inputString))
-    {
+    if (!empty($regex) && !empty($inputString)) {
         $screening = quotemeta($regex);
-        $check = preg_match('#'.$screening.'#', $inputString);
-        if($check === 1)
-        {
+        $check = preg_match('#' . $screening . '#', $inputString);
+        if ($check === 1) {
             $result = 'Yes';
-        } else
-        {
+        } else {
             $result = 'No';
         }
         return $result;
@@ -32,21 +30,17 @@ function lineMatchRegex(string $regex, string $inputString)
 }
 
 
-
 /**
  * Не используя регулярные выражения
  */
 
-
 function lineMatchPHP(string $regex, string $inputString)
 {
-        if($regex === $inputString)
-        {
-            $result = 'Yes';
-        } else
-        {
-            $result = 'No';
-        }
-        return $result;
+    if ($regex === $inputString) {
+        $result = 'Yes';
+    } else {
+        $result = 'No';
+    }
+    return $result;
 }
 
