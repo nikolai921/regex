@@ -32,70 +32,49 @@ function lineGUIDregex(string $inputString)
 
 function lineGUIDphp(string $inputString)
 {
+    function checkInside($inputString)
+    {
+        $elementArray = explode('-', $inputString);
+
+        $countElem = count($elementArray);
+
+        if ($countElem === 5) {
+            $countNumber0 = strlen($elementArray[0]);
+            $countNumber1 = strlen($elementArray[1]);
+            $countNumber2 = strlen($elementArray[2]);
+            $countNumber3 = strlen($elementArray[3]);
+            $countNumber4 = strlen($elementArray[4]);
+
+            if ($countNumber0 === 8
+                && $countNumber1 === 4
+                && $countNumber2 === 4
+                && $countNumber3 === 4
+                && $countNumber4 === 12) {
+                $checkNumber = implode('', $elementArray);
+                $check = ctype_xdigit($checkNumber);
+                if ($check !== false) {
+                    $result = 'Yes';
+                } else {
+                    $result = 'No';
+                }
+            } else {
+                $result = 'No';
+            }
+        } else {
+            $result = 'No';
+        }
+        return $result;
+    }
+
     if (!empty($inputString)) {
         if ($inputString[0] === '{' && $inputString[-1] === '}') {
             $newInputString = trim($inputString, "\{\}");
 
-            $elementArray = explode('-', $newInputString);
+            $result = checkInside($newInputString);
 
-            $countElem = count($elementArray);
-
-            if ($countElem === 5) {
-                $countNumber0 = strlen($elementArray[0]);
-                $countNumber1 = strlen($elementArray[1]);
-                $countNumber2 = strlen($elementArray[2]);
-                $countNumber3 = strlen($elementArray[3]);
-                $countNumber4 = strlen($elementArray[4]);
-
-                if ($countNumber0 === 8
-                    && $countNumber1 === 4
-                    && $countNumber2 === 4
-                    && $countNumber3 === 4
-                    && $countNumber4 === 12) {
-                    $checkNumber = implode('', $elementArray);
-                    $check = ctype_xdigit($checkNumber);
-                    if ($check !== false) {
-                        $result = 'Yes';
-                    } else {
-                        $result = 'No';
-                    }
-                } else {
-                    $result = 'No';
-                }
-            } else {
-                $result = 'No';
-            }
-
-        } elseif ($inputString[0] !== '{' && $inputString[-1] !== '}') {
-            $elementArray = explode('-', $inputString);
-
-            $countElem = count($elementArray);
-
-            if ($countElem === 5) {
-                $countNumber0 = strlen($elementArray[0]);
-                $countNumber1 = strlen($elementArray[1]);
-                $countNumber2 = strlen($elementArray[2]);
-                $countNumber3 = strlen($elementArray[3]);
-                $countNumber4 = strlen($elementArray[4]);
-
-                if ($countNumber0 === 8
-                    && $countNumber1 === 4
-                    && $countNumber2 === 4
-                    && $countNumber3 === 4
-                    && $countNumber4 === 12) {
-                    $checkNumber = implode('', $elementArray);
-                    $check = ctype_xdigit($checkNumber);
-                    if ($check !== false) {
-                        $result = 'Yes';
-                    } else {
-                        $result = 'No';
-                    }
-                } else {
-                    $result = 'No';
-                }
-            } else {
-                $result = 'No';
-            }
+        } elseif ($inputString[0] !== '{' && $inputString[-1] !== '}')
+        {
+            $result = checkInside($inputString);
         } else {
             $result = 'No';
         }
