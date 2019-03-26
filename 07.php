@@ -13,7 +13,7 @@ function lineEmailRegex(string $inputString)
 {
     if(!empty($inputString))
     {
-        $check = preg_match('/^(?:[a-z0-9]+(?:[-_.]?[a-z0-9]+)?@[a-z0-9_.-]+(?:\.?[a-z0-9]+)?\.[a-z]{2,5})$/i', $inputString);
+        $check = preg_match('/^(?:[a-z0-9]+(?:[-_.]?[a-z0-9]+)?@[a-z0-9_.-]+(?:\.?[a-z0-9]+)?\.[a-z]{2,})$/i', $inputString);
         if($check === 1)
         {
             $result = 'Yes';
@@ -24,6 +24,7 @@ function lineEmailRegex(string $inputString)
         return $result;
     }
 }
+
 
 /**
  * Не используя регулярные выражения
