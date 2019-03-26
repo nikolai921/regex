@@ -7,6 +7,13 @@ declare(strict_types=1);
  * Написать регулярное выражение определяющее
  * является ли данная строчка валидным URL адресом.
  *
+ * В данной задачи, в варианте решение без использования регулярных выражений. При использование функции filter_var,
+ * некоторые тесты на неверное решение, реализовывались неправильно. В результате чего были сделаны отдельные правки
+ * чтобы четко соответствовать условиям задачи.
+ * При этом найти качественного решения через встроенные функции  PHP не получилось (слишком сложное решение
+ * по разбору строки), были использованы короткие регулярные выражения на соответствие строки,
+ * в основном это применялось для отбрасывания Url типа http://a.com.
+ *
  * @param string $inputString
  *
  * @return string
@@ -49,7 +56,8 @@ function lineURLphp(string $inputString)
 
         } else {
             $scheme = parse_url($inputString, PHP_URL_SCHEME);
-            if (empty($scheme)) {
+            if (empty($scheme))
+            {
                 $testUrl = 'http://' . $inputString;
                 $newCheck = filter_var($testUrl, FILTER_VALIDATE_URL);
                 if ($newCheck !== false) {
@@ -64,7 +72,6 @@ function lineURLphp(string $inputString)
         }
         return $result;
     }
-
 }
 
 

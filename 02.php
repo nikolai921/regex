@@ -6,6 +6,8 @@ declare(strict_types=1);
  *
  * Проверка, является ли строка GUID с или без скобок.
  *
+ *
+ *
  * @param string $inputString
  *
  * @return string
