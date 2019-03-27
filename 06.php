@@ -9,51 +9,44 @@ declare(strict_types=1);
  *
  * @param string $inputString
  *
- * @return string
+ * @return bool
  */
 
-function lineDATEregex(string $inputString)
+function lineDateRegex(string $inputString): bool
 {
-    if (!empty($inputString)) {
-        $regular = '#^(((0[1-9]|[12][0-9]|30)/?(0[13-9]|1[012])|31/?(0[13578]|1[02])|(0[1-9]|1[0-9]|2[0-8])/?02)/?[0-9]'
+    $regular = '#^(((0[1-9]|[12][0-9]|30)/?(0[13-9]|1[012])|31/?(0[13578]|1[02])|(0[1-9]|1[0-9]|2[0-8])/?02)/?[0-9]'
         . '{4}|29/?02/?([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00))$#';
-        $check = preg_match($regular, $inputString);
-        if ($check === 1) {
-            $result = 'Yes';
-        } else {
-            $result = 'No';
-        }
-        return $result;
-    }
+    return (preg_match($regular, $inputString) === 1);
 }
 
 /**
  * Не используя регулярные выражения
+ *
+ * @param string $inputString
+ *
+ * @return bool
  */
 
-function lineDATEphp($inputString)
+function lineDatePhp(string $inputString): bool
 {
-    if (!empty($inputString)) {
-        $arrayDate = explode('/', $inputString);
-        if (!empty($arrayDate[1])) {
-            $day = (int)$arrayDate[0];
-            $month = (int)$arrayDate[1];
-            $year = (int)$arrayDate[2];
+    $arrayDate = explode('/', $inputString);
 
+    if (count($arrayDate) === 3) {
 
-            $checkDate = checkdate($month, $day, $year);
+        list($day, $month, $year) = $arrayDate;
 
-            if ($checkDate === true) {
-                $result = 'Yes';
-            } else {
-                $result = 'No';
-            }
+        if ($year >= 1600
+            && $year <= 9999
+            && mb_strlen($day) === 2
+            && mb_strlen($month) === 2
+            && mb_strlen($year) === 4) {
+            $result = checkdate((int)$month, (int)$day, (int)$year);
         } else {
-            $result = 'No';
+            $result = false;
         }
-        return $result;
-
-
+    } else {
+        $result = false;
     }
-}
 
+    return $result;
+}

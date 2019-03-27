@@ -11,36 +11,26 @@ declare(strict_types=1);
  * @param $regex       - основная строка
  * @param $inputString - сравниваемая строка на соответствие основной
  *
- * @return string
+ * @return bool
  */
 
-function lineMatchRegex(string $regex, string $inputString)
+function lineMatchRegex(string $regex, string $inputString): bool
 {
-    if (!empty($regex) && !empty($inputString)) {
-        $screening = quotemeta($regex);
-        $check = preg_match('#' . $screening . '#', $inputString);
-        if ($check === 1) {
-            $result = 'Yes';
-        } else {
-            $result = 'No';
-        }
-        return $result;
-    }
-
+    $screening = quotemeta($regex);
+    return (preg_match('#' . $screening . '#', $inputString) === 1);
 }
-
 
 /**
  * Не используя регулярные выражения
+ *
+ * @param string $regex
+ * @param string $inputString
+ *
+ * @return bool
  */
 
-function lineMatchPHP(string $regex, string $inputString)
+function lineMatchPHP(string $regex, string $inputString): bool
 {
-    if ($regex === $inputString) {
-        $result = 'Yes';
-    } else {
-        $result = 'No';
-    }
-    return $result;
+    return ($regex === $inputString);
 }
 

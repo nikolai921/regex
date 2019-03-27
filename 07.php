@@ -7,43 +7,27 @@ declare(strict_types=1);
  * Написать регулярное выражение определяющее является ли данная строка
  * валидным E-mail адресом согласно RFC под номером 2822
  *
+ * @param string $inputString
+ *
+ * @return bool
  */
 
-function lineEmailRegex(string $inputString)
+function lineEmailRegex(string $inputString): bool
 {
-    if(!empty($inputString))
-    {
-        $check = preg_match('/^(?:[a-z0-9]+(?:[-_.]?[a-z0-9]+)?@[a-z0-9_.-]+(?:\.?[a-z0-9]+)?\.[a-z]{2,})$/i', $inputString);
-        if($check === 1)
-        {
-            $result = 'Yes';
-        } else
-        {
-            $result = 'No';
-        }
-        return $result;
-    }
+    return (preg_match('/^(?:[a-z0-9]+(?:[-_.]?[a-z0-9]+)?@[a-z0-9_.-]+(?:\.?[a-z0-9]+)?\.[a-z]{2,})$/i',
+            $inputString) === 1);
 }
-
 
 /**
+ *
  * Не используя регулярные выражения
+ *
+ * @param string $inputString
+ *
+ * @return bool
  */
 
-function lineEmailPhp($inputString)
+function lineEmailPhp(string $inputString)
 {
-    if(!empty($inputString))
-    {
-        $check = filter_var($inputString, FILTER_VALIDATE_EMAIL);
-
-        if($check !== false)
-        {
-            $result = 'Yes';
-        } else
-        {
-            $result = 'No';
-        }
-        return $result;
-    }
+    return (filter_var($inputString, FILTER_VALIDATE_EMAIL) !== false);
 }
-

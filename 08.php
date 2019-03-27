@@ -3,37 +3,30 @@
 declare(strict_types=1);
 
 /**
+ *
  * Составить регулярное выражение, является ли заданная строка IP адресом, записанным в десятичном виде
+ *
+ * @param string $inputString
+ *
+ * @return bool
  */
 
-function lineIPregex(string $inputString)
+function lineIPregex(string $inputString): bool
 {
-    if (!empty($inputString)) {
-        $check = preg_match('#^(?=.*[^\.]$)((25[0-5]|2[0-4]\d|[01]?\d\d?)\.?){4}$#', $inputString);
-        if ($check === 1) {
-            $result = 'Yes';
-        } else {
-            $result = 'No';
-        }
-        return $result;
-    }
+    return (preg_match('#^(?=.*[^\.]$)((25[0-5]|2[0-4]\d|[01]?\d\d?)\.?){4}$#', $inputString) === 1);
 }
 
 /**
+ *
  * Не используя регулярные выражения
+ *
+ * @param string $inputString
+ *
+ * @return bool
  */
 
-function lineIPphp($inputString)
+function lineIpPhp(string $inputString)
 {
-    if (!empty($inputString)) {
-        $check = filter_var($inputString, FILTER_VALIDATE_IP);
-
-        if ($check !== false) {
-            $result = 'Yes';
-        } else {
-            $result = 'No';
-        }
-        return $result;
-    }
+    return (filter_var($inputString, FILTER_VALIDATE_IP) !== false);
 }
 

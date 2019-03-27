@@ -6,33 +6,27 @@ declare(strict_types=1);
  *
  * Проверка, является ли строка GUID с или без скобок.
  *
- *
- *
  * @param string $inputString
  *
- * @return string
+ * @return bool
  */
 
-function lineGUIDregex(string $inputString)
+function lineGuidRegex(string $inputString): bool
 {
-    if (!empty($inputString)) {
-        $guid = '[a-f\d]{8}\-[a-f\d]{4}\-[a-f\d]{4}\-[a-f\d]{4}\-[a-f\d]{12}';
-        $check = preg_match('#((?:^' . $guid . '$)|(?:^\{' . $guid . '\}$))#i', $inputString);
-        if ($check === 1) {
-            $result = 'Yes';
-        } else {
-            $result = 'No';
-        }
-        return $result;
-    }
-
+    $guid = '[a-f\d]{8}\-[a-f\d]{4}\-[a-f\d]{4}\-[a-f\d]{4}\-[a-f\d]{12}';
+    return (preg_match('#((?:^' . $guid . '$)|(?:^\{' . $guid . '\}$))#i', $inputString) === 1);
 }
 
 /**
+ *
  * Не используя регулярные выражения
+ *
+ * @param string $inputString
+ *
+ * @return bool
  */
 
-function lineGUIDphp(string $inputString)
+function lineGuidPhp(string $inputString): bool
 {
     function checkInside($inputString)
     {
@@ -55,32 +49,30 @@ function lineGUIDphp(string $inputString)
                 $checkNumber = implode('', $elementArray);
                 $check = ctype_xdigit($checkNumber);
                 if ($check !== false) {
-                    $result = 'Yes';
+                    $result = true;
                 } else {
-                    $result = 'No';
+                    $result = false;
                 }
             } else {
-                $result = 'No';
+                $result = false;
             }
         } else {
-            $result = 'No';
+            $result = false;
         }
         return $result;
     }
 
-    if (!empty($inputString)) {
-        if ($inputString[0] === '{' && $inputString[-1] === '}') {
-            $newInputString = trim($inputString, "\{\}");
+    if ($inputString[0] === '{' && $inputString[-1] === '}') {
+        $newInputString = trim($inputString, "\{\}");
 
-            $result = checkInside($newInputString);
+        $result = checkInside($newInputString);
 
-        } elseif ($inputString[0] !== '{' && $inputString[-1] !== '}')
-        {
-            $result = checkInside($inputString);
-        } else {
-            $result = 'No';
-        }
+    } elseif ($inputString[0] !== '{' && $inputString[-1] !== '}') {
+        $result = checkInside($inputString);
+    } else {
+        $result = false;
     }
+
     return $result;
 }
 

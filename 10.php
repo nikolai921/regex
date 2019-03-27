@@ -3,44 +3,32 @@
 declare(strict_types=1);
 
 /**
+ *
  * Проверить является ли заданная строка шестизначным числом,
  * записанным в десятичной системе счисления без нулей в старших разрядах.
+ *
+ * @param string $inputString
+ *
+ * @return bool
  */
 
-function lineNumberRegex(string $inputString)
+function lineNumberRegex(string $inputString): bool
 {
-    if (!empty($inputString)) {
-        $check = preg_match('#^[1-9]\d{5}$#', $inputString);
-        if ($check === 1) {
-            $result = 'Yes';
-        } else {
-            $result = 'No';
-        }
-        return $result;
-    }
+    return (preg_match('#^[1-9]\d{5}$#', $inputString) === 1);
 }
 
 /**
+ *
  * Не используя регулярные выражения
+ *
+ * @param string $inputString
+ *
+ * @return bool
  */
 
-function lineNumberPhp(string $inputString)
+function lineNumberPhp(string $inputString): bool
 {
-    if (!empty($inputString)) {
-        $length = strlen($inputString);
-        $leadingDigit = (int)$inputString[0];
-
-        if ($length === 6 && $leadingDigit !== 0) {
-            $check = ctype_digit($inputString);
-            if ($check !== false) {
-                $result = 'Yes';
-            } else {
-                $result = 'No';
-            }
-        } else {
-            $result = 'No';
-        }
-        return $result;
-    }
+    $inputStringIntType = (int)$inputString;
+    return (($inputStringIntType > 99999 && $inputStringIntType < 999999) !== false);
 }
 

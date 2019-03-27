@@ -9,21 +9,13 @@ declare(strict_types=1);
  *
  * @param string $inputString
  *
- * @return string
+ * @return bool
  */
 
-function lineHTMLregex(string $inputString)
+function lineHtmlRegex(string $inputString): bool
 {
-    if (!empty($inputString)) {
-        $guid = '\#[a-f\d]{6}';
-        $check = preg_match('#' . $guid . '#i', $inputString);
-        if ($check === 1) {
-            $result = 'Yes';
-        } else {
-            $result = 'No';
-        }
-        return $result;
-    }
+    $guid = '\#[a-f\d]{6}';
+    return (preg_match('#' . $guid . '#i', $inputString) === 1);
 }
 
 

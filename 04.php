@@ -16,64 +16,38 @@ declare(strict_types=1);
  *
  * @param string $inputString
  *
- * @return string
+ * @return bool
  */
 
-function lineURLregex(string $inputString)
+function lineUrlRegex(string $inputString): bool
 {
-    if (!empty($inputString)) {
-
-        $check = preg_match('#^(?:http(?:s)?\:\/\/)?(www\.)?[^\-][a-zA-Z0-9\.\-]{2,}[^\-]\.[a-z]{2,}(?:.*)?$#',
-            $inputString);
-        if ($check === 1) {
-            $result = 'Yes';
-        } else {
-            $result = 'No';
-        }
-        return $result;
-    }
-
+    return (preg_match('#^(?:http(?:s)?\:\/\/)?(www\.)?[^\-][a-zA-Z0-9\.\-]{2,}[^\-]\.[a-z]{2,}(?:.*)?$#',
+            $inputString) === 1);
 }
-
 
 /**
+ *
  * Не используя регулярные выражения
+ *
+ * @param string $inputString
+ *
+ * @return bool
  */
 
-function lineURLphp(string $inputString)
+function lineUrlPhp(string $inputString): bool
 {
-    if (!empty($inputString)) {
-
-        $check = filter_var($inputString, FILTER_VALIDATE_URL);
-        if ($check !== false) {
-            $hostName = parse_url($check, PHP_URL_HOST);
-            $checkHost = preg_replace('#^(?:www\.)?(.*)\.[a-z]{2,}$#', '$1', $hostName);
-            $lengthHost = strlen($checkHost);
-            if ($lengthHost > 1) {
-                $result = 'Yes';
-            } else {
-                $result = 'No';
-            }
-
+    $check = filter_var($inputString, FILTER_VALIDATE_URL);
+    if ($check !== false) {
+        $result = true;
+    } else {
+        $testUrl = 'http://' . $inputString;
+        $newCheck = filter_var($testUrl, FILTER_VALIDATE_URL);
+        if ($newCheck !== false) {
+            $result = true;
         } else {
-            $scheme = parse_url($inputString, PHP_URL_SCHEME);
-            if (empty($scheme))
-            {
-                $testUrl = 'http://' . $inputString;
-                $newCheck = filter_var($testUrl, FILTER_VALIDATE_URL);
-                if ($newCheck !== false) {
-                    $result = 'Yes';
-                } else {
-                    $result = 'No';
-                }
-            } else {
-                $result = 'No';
-            }
-
+            $result = false;
         }
-        return $result;
     }
+
+    return $result;
 }
-
-
-
